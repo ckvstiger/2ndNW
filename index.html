@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>網概喵喵複習樂園｜第二次段考精選 35 題詳解＆刷題網</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+  <div class="top-ribbon"></div>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-badge-row">
+            <span class="sticker-tag">🏫 智光商工 資料處理科 三年仁班</span>
+            <span class="sticker-tag pink">📘 115-1 第二次段考題庫</span>
+            <span class="sticker-tag sky">✨ 精選 35 題深度詳解</span>
+          </div>
+          <h1>網路概論 <span class="highlight">喵喵滿分複習樂園</span> 🐾</h1>
+          <p class="hero-sub">專為第二次段考打造的可愛手札複習站：每題皆附「秒懂口訣＋錯誤選項拆解」，還能隨時抽題刷題、消滅錯題！</p>
+        </div>
+
+        <!-- Cute SVG Cat Router Mascot -->
+        <div class="mascot-box">
+          <svg class="mascot-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Wi-Fi Waves -->
+            <path d="M46 18C54 11 66 11 74 18" stroke="#FF8FAB" stroke-width="4.5" stroke-linecap="round"/>
+            <path d="M52 26C56.5 22 63.5 22 68 26" stroke="#FFD166" stroke-width="4.5" stroke-linecap="round"/>
+            <circle cx="60" cy="32" r="3.5" fill="#46353A"/>
+            <!-- Cat Ears -->
+            <path d="M26 52L20 26L44 38Z" fill="#FFD6E0" stroke="#46353A" stroke-width="3.5" stroke-linejoin="round"/>
+            <path d="M94 52L100 26L76 38Z" fill="#FFD6E0" stroke="#46353A" stroke-width="3.5" stroke-linejoin="round"/>
+            <!-- Cat Head -->
+            <rect x="20" y="36" width="80" height="66" rx="32" fill="#FFFFFF" stroke="#46353A" stroke-width="3.8"/>
+            <!--Blush-->
+            <ellipse cx="36" cy="73" rx="7" ry="4.2" fill="#FFB3C6"/>
+            <ellipse cx="84" cy="73" rx="7" ry="4.2" fill="#FFB3C6"/>
+            <!-- Eyes -->
+            <circle cx="43" cy="64" r="5" fill="#46353A"/>
+            <circle cx="41.5" cy="62.2" r="1.8" fill="#FFFFFF"/>
+            <circle cx="77" cy="64" r="5" fill="#46353A"/>
+            <circle cx="75.5" cy="62.2" r="1.8" fill="#FFFFFF"/>
+            <!-- Mouth -->
+            <path d="M54 71C56 74.5 60 74.5 60 71C60 74.5 64 74.5 66 71" stroke="#46353A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Tiny Paws -->
+            <ellipse cx="42" cy="102" rx="10" ry="6.5" fill="#FFF0F5" stroke="#46353A" stroke-width="3.2"/>
+            <ellipse cx="78" cy="102" rx="10" ry="6.5" fill="#FFF0F5" stroke="#46353A" stroke-width="3.2"/>
+          </svg>
+          <div class="mascot-speech">
+            <span>💬 網概小助教喵喵：</span>
+            <div id="mascot-quote">嗨三年仁班同學！先看口訣詳解，再來刷題拿滿分喵～🐾</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#E8F8F0;">🎯</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-mastered">0 / 35</div>
+            <div class="stat-label">已刷對掌握</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#FFF6DC;">⭐</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-bookmarks">0 題</div>
+            <div class="stat-label">重點收藏夾</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#FFF0F0;">🩹</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-wrong">0 題</div>
+            <div class="stat-label">待消滅錯題</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#F4EDFF;">🔥</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-combo">x0</div>
+            <div class="stat-label">最高連對紀錄</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Mode Tabs -->
+    <nav class="nav-tabs" aria-label="學習模式切換">
+      <button type="button" class="tab-btn active" data-tab="study">
+        <span>📖</span> 35 題詳解圖鑑
+      </button>
+      <button type="button" class="tab-btn" data-tab="quiz">
+        <span>🎮</span> 互動刷題樂園
+      </button>
+      <button type="button" class="tab-btn" data-tab="cheat">
+        <span>🗂️</span> 考前精華小抄
+      </button>
+    </nav>
+
+    <!-- ==================== TAB 1: STUDY MODE ==================== -->
+    <section id="panel-study" class="tab-panel active">
+      <div class="toolbar-card">
+        <div id="filter-pills" class="filter-pills"></div>
+
+        <div class="toolbar-row">
+          <div class="search-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="study-search" placeholder="搜尋關鍵字（例：光纖、路由器、拓樸、802.11、NAT、第37題...）" />
+            <button type="button" id="clear-search" class="clear-search-btn" title="清除搜尋">✖</button>
+          </div>
+
+          <div class="toolbar-toggles">
+            <button type="button" id="toggle-mask-btn" class="cute-toggle">
+              👀 背誦遮罩：關閉（直接顯示詳解）
+            </button>
+            <button type="button" id="jump-to-quiz-btn" class="primary-cute-btn" style="padding:8px 16px; font-size:0.88rem;">
+              🚀 馬上開始刷題
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="study-meta-bar">
+        <span id="study-result-count">目前顯示 35 / 35 題</span>
+        <span>💡 小提示：點擊右上角「☆ 收藏重點」可把常考題收進專屬特訓清單！</span>
+      </div>
+
+      <div id="study-list" class="study-list"></div>
+    </section>
+
+    <!-- ==================== TAB 2: QUIZ MODE ==================== -->
+    <section id="panel-quiz" class="tab-panel">
+      <!-- Launcher -->
+      <div id="quiz-launcher" class="quiz-launcher">
+        <h2 class="section-title">🎮 選擇你的刷題挑戰模式</h2>
+        <p class="section-desc">支援鍵盤快捷鍵（數字鍵 <code>1~4</code> 或 <code>A~D</code> 作答、<code>Enter</code> 下一題），刷起來超順手！</p>
+
+        <div class="mode-cards-grid">
+          <button type="button" id="start-all-quiz" class="mode-card" style="background:#FFF0F4;">
+            <div class="mode-card-top">
+              <span class="mode-emoji">🌟</span>
+              <span class="mode-badge">35 題全刷</span>
+            </div>
+            <div>
+              <h3>完整 35 題大挑戰</h3>
+              <p>精選題庫一次刷透透，完整檢驗第二次段考實力！</p>
+            </div>
+          </button>
+
+          <button type="button" id="start-quick10-quiz" class="mode-card" style="background:#FFF9E6;">
+            <div class="mode-card-top">
+              <span class="mode-emoji">⚡</span>
+              <span class="mode-badge">隨機 10 題</span>
+            </div>
+            <div>
+              <h3>閃電 10 題快刷</h3>
+              <p>下課 3 分鐘隨時來一局，隨機抽考不偏科！</p>
+            </div>
+          </button>
+
+          <button type="button" id="start-wrong-quiz" class="mode-card" style="background:#FFF0F0;">
+            <div class="mode-card-top">
+              <span class="mode-emoji">🩹</span>
+              <span class="mode-badge" id="wrong-quiz-badge">0 題</span>
+            </div>
+            <div>
+              <h3>錯題消滅戰</h3>
+              <p>專攻曾經答錯的題目，答對立即從錯題本畢業！</p>
+            </div>
+          </button>
+
+          <button type="button" id="start-star-quiz" class="mode-card" style="background:#F4EDFF;">
+            <div class="mode-card-top">
+              <span class="mode-emoji">⭐</span>
+              <span class="mode-badge" id="star-quiz-badge">0 題</span>
+            </div>
+            <div>
+              <h3>收藏重點特訓</h3>
+              <p>只刷你自己打星號標記的必考重點題！</p>
+            </div>
+          </button>
+        </div>
+
+        <div class="cat-drill-box">
+          <div class="cat-drill-title">🎯 或挑選單一章節進行專項特訓：</div>
+          <div id="cat-drill-btns" class="cat-drill-btns"></div>
+        </div>
+
+        <div class="quiz-settings-row">
+          <div class="check-group">
+            <label class="cute-check">
+              <input type="checkbox" id="chk-shuffle-q" checked />
+              <span>🔀 隨機打亂題號順序</span>
+            </label>
+            <label class="cute-check">
+              <input type="checkbox" id="chk-shuffle-opt" />
+              <span>🎲 隨機打亂 (A)(B)(C)(D) 選項位置</span>
+            </label>
+            <label class="cute-check">
+              <input type="checkbox" id="chk-instant" checked />
+              <span>💡 作答後立即批改看詳解（取消則為交卷統一計分）</span>
+            </label>
+            <label class="cute-check">
+              <input type="checkbox" id="chk-sound" checked />
+              <span>🔔 療癒叮咚音效</span>
+            </label>
+          </div>
+          <button type="button" id="reset-records-btn" class="reset-btn">🗑️ 重置學習紀錄</button>
+        </div>
+      </div>
+
+      <!-- Active Quiz Arena -->
+      <div id="quiz-arena" class="quiz-arena">
+        <div class="quiz-topbar">
+          <div class="quiz-status-row">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <button type="button" id="quiz-quit-btn" class="secondary-cute-btn" style="padding:5px 12px; font-size:0.82rem;">⬅ 返回選單</button>
+              <span id="quiz-mode-title" style="font-weight:900; color:var(--pink-deep);"></span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span id="quiz-combo-pill" class="combo-pill">🔥 連對 Combo x0</span>
+              <span id="quiz-progress-text" class="quiz-progress-label">第 1 / 35 題</span>
+            </div>
+          </div>
+          <div class="progress-track">
+            <div id="quiz-progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="quiz-question-box">
+          <div class="q-card-header">
+            <div id="quiz-q-meta" class="q-badges"></div>
+            <button type="button" id="quiz-star-btn" class="star-btn">☆ 收藏此題</button>
+          </div>
+
+          <div id="quiz-q-stem" class="quiz-q-stem"></div>
+          <div id="quiz-options-list" class="quiz-options-list"></div>
+
+          <div id="quiz-feedback-area" class="quiz-feedback-area"></div>
+
+          <div class="quiz-actions-bar">
+            <button type="button" id="quiz-prev-btn" class="secondary-cute-btn">⬅ 上一題</button>
+            <span class="kbd-hint">⌨️ 支援按鍵 1~4 / A~D 選答案、Enter 下一題</span>
+            <button type="button" id="quiz-next-btn" class="primary-cute-btn">下一題 ➔</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Result -->
+      <div id="quiz-result" class="quiz-result">
+        <div class="result-hero">
+          <div id="res-score-ring" class="score-ring">
+            <div class="score-ring-inner">
+              <span id="res-score-num" class="score-num">100</span>
+              <span class="score-unit">SCORE</span>
+            </div>
+          </div>
+          <div id="res-rank-title" class="result-rank-title"></div>
+          <p id="res-rank-sub" style="color:var(--ink-soft); font-weight:700;"></p>
+
+          <div class="result-metrics">
+            <span id="res-correct" class="metric-chip"></span>
+            <span id="res-wrong" class="metric-chip"></span>
+            <span id="res-time" class="metric-chip"></span>
+          </div>
+
+          <div class="result-btn-row">
+            <button type="button" id="res-retry-wrong" class="primary-cute-btn">🩹 立即重刷本回錯題</button>
+            <button type="button" id="res-play-again" class="secondary-cute-btn">🔄 同模式再刷一次</button>
+            <button type="button" id="res-back-launcher" class="secondary-cute-btn">🏠 回刷題大廳</button>
+          </div>
+        </div>
+
+        <h3 style="font-size:1.15rem; font-weight:900;">📝 本回作答詳解回顧</h3>
+        <div id="res-review-list"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: CHEAT SHEET ==================== -->
+    <section id="panel-cheat" class="tab-panel">
+      <div class="cheat-grid">
+        <!-- Card 1: OSI 7 Layers -->
+        <div class="cheat-card full-span">
+          <h3>🧁 OSI 七層架構「由下而上」必背彩虹蛋糕圖（口訣：實、資、網、傳、會、表、應）</h3>
+          <div class="osi-stack">
+            <div class="osi-row" style="background:#FFE5EC;">
+              <span class="osi-layer-num">第 7 層</span>
+              <span>應用層 Application</span>
+              <span>直接提供網路服務｜協定：<strong>HTTP（網頁）、FTP（傳檔）、SMTP/POP3（郵件）、DNS、DHCP、Telnet（遠端登入）、SNMP</strong></span>
+            </div>
+            <div class="osi-row" style="background:#FFF0E5;">
+              <span class="osi-layer-num">第 6 層</span>
+              <span>表示層 Presentation</span>
+              <span>資料格式轉換、編碼解碼（ASCII/JPEG）、壓縮與加密解密</span>
+            </div>
+            <div class="osi-row" style="background:#FFF9DB;">
+              <span class="osi-layer-num">第 5 層</span>
+              <span>會議層 Session</span>
+              <span>建立、管理與終止兩端通訊交談連線</span>
+            </div>
+            <div class="osi-row" style="background:#E8F8F0;">
+              <span class="osi-layer-num">第 4 層</span>
+              <span>傳輸層 Transport</span>
+              <span>端對端可靠度與連接埠（Port）｜協定：<strong>TCP（可靠連接）、UDP（快速非連接）</strong></span>
+            </div>
+            <div class="osi-row" style="background:#E6F4FC;">
+              <span class="osi-layer-num">第 3 層</span>
+              <span>網路層 Network</span>
+              <span>邏輯定址與最佳路徑選擇｜設備：<strong>路由器 Router</strong>｜協定：<strong>IP、ARP、ICMP</strong></span>
+            </div>
+            <div class="osi-row" style="background:#EFEAFF;">
+              <span class="osi-layer-num">第 2 層</span>
+              <span>資料鏈結層 Data Link</span>
+              <span>MAC 實體位址與訊框防碰撞（含 IEEE 802 LLC/MAC）｜設備：<strong>網路卡 NIC、橋接器 Bridge、交換器 Switch</strong></span>
+            </div>
+            <div class="osi-row" style="background:#F8EFF4;">
+              <span class="osi-layer-num">第 1 層</span>
+              <span>實體層 Physical</span>
+              <span>0 與 1 位元電訊號/光訊號與線材接頭（含 IEEE 802 底層）｜設備：<strong>中繼器 Repeater、集線器 Hub</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Transmission Media -->
+        <div class="cheat-card">
+          <h3>📡 有線與無線傳輸媒體速查表</h3>
+          <table class="cute-table">
+            <thead>
+              <tr>
+                <th>媒介 / 標準</th>
+                <th>接頭 / 頻段</th>
+                <th>考點關鍵字</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>雙絞線 (UTP)</strong></td>
+                <td>RJ-45 水晶頭</td>
+                <td>單段最遠 <strong>100m</strong>；10BaseT=10Mbps、100BaseTX=100Mbps</td>
+              </tr>
+              <tr>
+                <td><strong>同軸電纜</strong></td>
+                <td>BNC (RG-58)<br/>F頭 (RG-6)</td>
+                <td>抗雜訊優於無遮蔽雙絞線；乙太網 10Base2(185m)/10Base5(500m) 僅 10Mbps</td>
+              </tr>
+              <tr>
+                <td><strong>光纖 (Fiber)</strong></td>
+                <td>ST / SC / LC</td>
+                <td>光脈衝傳輸、<strong>頻寬最大、距離最遠、抗雜訊與安全性最佳</strong>；100Base<strong>FX</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Wi-Fi 無線網路</strong></td>
+                <td>IEEE <strong>802.11</strong></td>
+                <td>802.11=2M、<strong>802.11b=11Mbps</strong>、802.11a/g=54Mbps</td>
+              </tr>
+              <tr>
+                <td><strong>藍牙 Bluetooth</strong></td>
+                <td>2.4GHz 電波</td>
+                <td>短距離無線傳輸、無角度對準限制（紅外線才需對準角度！）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Card 3: Network Topologies -->
+        <div class="cheat-card">
+          <h3>🕸️ 四大網路拓樸與故障陷阱比較</h3>
+          <table class="cute-table">
+            <thead>
+              <tr>
+                <th>拓樸</th>
+                <th>結構特色</th>
+                <th>單台電腦故障影響？</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>星狀 Star</strong></td>
+                <td>連向中央集線器/交換器，易集中管理</td>
+                <td><strong>不影響</strong>其他電腦（但中央設備壞則全斷）</td>
+              </tr>
+              <tr>
+                <td><strong>匯流排 Bus</strong></td>
+                <td>共用單一主幹向兩端廣播，兩頭裝終端電阻</td>
+                <td><strong>不影響</strong>其他電腦（但主幹纜線斷則全斷）</td>
+              </tr>
+              <tr>
+                <td><strong>環狀 Ring</strong></td>
+                <td>一部接一部成環，靠<strong>記號封包 Token</strong> 傳送（零碰撞！）</td>
+                <td>單環中任一節點故障<strong>會中斷全網</strong>！</td>
+              </tr>
+              <tr>
+                <td><strong>網狀 Mesh</strong></td>
+                <td>節點間有<strong>兩條以上路徑</strong>，多用於廣域網路 WAN</td>
+                <td>容錯力最高，可自動繞道（非 LAN 常見架構）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Card 4: Switch Port Calculator (Q37) -->
+        <div class="cheat-card full-span">
+          <h3>🧮 交換器串接台數互動驗算機（對應原卷第 37 題必勝公式）</h3>
+          <p style="font-size:0.9rem; color:var(--ink-soft); font-weight:700;">
+            為什麼串接一台交換器會少 2 個埠？因為「上層交換器連下層交換器」那條網路線，兩頭各插掉 1 個連接埠！試著改改數字秒懂公式：
+          </p>
+          <div class="calc-widget">
+            <div class="calc-inputs">
+              <div class="calc-field">
+                <label for="calc-pcs">🖥️ 教室電腦總台數：</label>
+                <input type="number" id="calc-pcs" value="45" min="1" max="500" />
+              </div>
+              <div class="calc-field">
+                <label for="calc-ports">🔌 每台交換器連接埠數 (Ports)：</label>
+                <input type="number" id="calc-ports" value="12" min="4" max="64" />
+              </div>
+            </div>
+            <div id="calc-output" class="calc-output"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      🍓 祝智光商工三年仁班同學【網路概論】第二次段考全員高分 All Pass！✨
+    </footer>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
